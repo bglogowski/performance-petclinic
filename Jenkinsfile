@@ -12,8 +12,9 @@ pipeline
     amiNameTagValue = "";
     thisTestNameVar = "";
     thisTestValue = "performance-testing";
-    ProjectName = "petclinic-spring";
+    ProjectName = "sprint-petclinic";
     fileProperties = "file.properties"
+    TF_CLI_ARGS = "-no-color"
   }
 
   stages {
@@ -23,8 +24,8 @@ pipeline
       steps {
         echo "Getting the Performance Testing Repo"
         git(
-        url:'git@github.com:ochoadevops/petclinic-performance.git',
-        credentialsId: 'performance',
+        url:'git@github.com:bglogowski/performance-petclinic.git',
+        credentialsId: 'myKey',
         branch: "main"
         )
      }
@@ -81,9 +82,9 @@ pipeline
 
                  sh 'pwd'
                  sh 'ls -l'
-                 sh '/usr/local/bin/terraform init -input=false'
-                 sh '/usr/local/bin/terraform plan'
-                 sh '/usr/local/bin/terraform apply -auto-approve'
+                 sh '/usr/bin/terraform init -input=false'
+                 sh '/usr/bin/terraform plan'
+                 sh '/usr/bin/terraform apply -auto-approve'
 
                  echo 'Starting sleep for 3 minutes to allow for the EC2 Instance to complete startup'
                  sleep(time: 3, unit: 'MINUTES')
@@ -169,11 +170,11 @@ pipeline
                  sh 'rm -f test-results.*'
                  sh 'rm -r -f html-report'
                  sh 'ls -l'
-                 sh '/usr/local/bin/jmeter/bin/jmeter.sh -n -t ./test-plan.jmx -l ./test-results.csv'
+                 sh '/opt/jmeter/bin/jmeter.sh -n -t ./test-plan.jmx -l ./test-results.csv'
                  sh 'mkdir html-report'
                  sh 'ls -l'
                  echo "create html report"
-                 sh '/usr/local/bin/jmeter/bin/jmeter.sh -g ./test-results.csv -e -o html-report'
+                 sh '/opt/jmeter/bin/jmeter.sh -g ./test-results.csv -e -o html-report'
 
                  echo "uploading artifacts to Jenkins dashboard"
                  archiveArtifacts '**/*.*'
@@ -195,7 +196,7 @@ pipeline
                  echo "update terraform variables "
                  // Test completed, destroy environment
                  echo "Test completed, destroying environment"
-                 sh '/usr/local/bin/terraform destroy -auto-approve'
+                 sh '/usr/bin/terraform destroy -auto-approve'
               }
           }
       }

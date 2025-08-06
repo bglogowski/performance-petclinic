@@ -1,12 +1,12 @@
 variable "region" {
   description =  "Identifies AWS region to use"
-  default = "us-west-1"
+  default = "us-west-2"
 }
 
 
 variable "vpc_id" {
   description =  "VPC to use for testing. Default is AWS Default VPC"
-  default = "vpc-442aaf21"
+  default = "vpc-07688c3e3dc8ae718"
 }
 
 
