@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_security_group" "performance_security_group" {
   vpc_id = "vpc-07688c3e3dc8ae718"
-  name = "access-https-api-testing-${var.build_id}"
+  name = "access-https-api-performance-${var.build_id}"
   ingress {
     from_port   = 443
     to_port     = 443
