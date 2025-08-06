@@ -12,7 +12,7 @@ pipeline
     amiNameTagValue = "";
     thisTestNameVar = "";
     thisTestValue = "performance-testing";
-    ProjectName = "sprint-petclinic";
+    ProjectName = "spring-petclinic";
     fileProperties = "file.properties"
     TF_CLI_ARGS = "-no-color"
   }
